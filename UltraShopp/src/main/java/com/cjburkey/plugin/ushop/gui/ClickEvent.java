@@ -15,10 +15,9 @@ import com.cjburkey.plugin.ushop.shop.ShopUtil;
 public class ClickEvent implements Listener {
 	
 	@EventHandler
-	public void click(InventoryClickEvent e) {
-		e.setCancelled(true);
-		
+	public void click(InventoryClickEvent e) {		
 		if(!e.getInventory().getTitle().contains(Util.color("&2Shop - "))) return;
+		e.setCancelled(true);
 		Player player = (Player) e.getWhoClicked();
 		ItemStack item = e.getCurrentItem();
 		String shop = e.getInventory().getTitle().replaceAll(Util.color("&2Shop - "), "");
