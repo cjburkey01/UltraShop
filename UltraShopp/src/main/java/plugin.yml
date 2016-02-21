@@ -1,0 +1,23 @@
+name: UltraShop
+main: com.cjburkey.plugin.ushop.UltraShop
+author: CJ Burkey
+database: false
+prefix: UltraShop
+version: 1.0.0
+depend: [Vault]
+
+permission:
+  ushop.user:
+    description: Allow basic usage of UltraShop commands.
+    default: true
+ 
+  ushop.admin:
+    description: Allow creation of shops.
+    default: op
+
+commands:
+  shop:
+    description: The main UltraShop command.
+    usage: /<command>
+    permission: ushop.user
+    permission-message: '§4You do not have permission to use /shop'
