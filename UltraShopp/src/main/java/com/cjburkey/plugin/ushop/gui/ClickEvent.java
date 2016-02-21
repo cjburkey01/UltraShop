@@ -22,23 +22,29 @@ public class ClickEvent implements Listener {
 		ItemStack item = e.getCurrentItem();
 		String shop = e.getInventory().getTitle().replaceAll(Util.color("&2Shop - "), "");
 		String i = item.getType().name() + ":" + item.getDurability();
+		String disp = item.getItemMeta().getDisplayName();
 		if(item != null) {
-			for(ShopItem it : ShopUtil.getItems(shop)) {
-				if(it.item.equals(item.getType().name())) {
-					double buy = ShopUtil.getItemFromShop(shop, i);
-					double sell = Util.buyToSell(buy);
-					int amount = (e.isShiftClick()) ? 16 : 1;
-					buy *= amount;
-					sell *= amount;
-					ItemStack stack = Util.copy(item);
-					stack.setAmount(amount);
-					if(e.isLeftClick()) {
-						PlayerInter.buy(player, buy, stack, shop);
-					} else if(e.isRightClick()) {
-						PlayerInter.sell(player, sell, stack, shop, buy);
+			if(disp.equals(Util.color("&2Back")) || disp.equals(Util.color("&2Next"))) {
+				int page = Integer.parseInt(item.getItemMeta().getLore().get(0));
+				ShopGUI.show(player, UltraShop.getEcon(), shop, page);
+			} else {
+				for(ShopItem it : ShopUtil.getItems(shop)) {
+					if(it.item.equals(item.getType().name())) {
+						double buy = ShopUtil.getItemFromShop(shop, i);
+						double sell = Util.buyToSell(buy);
+						int amount = (e.isShiftClick()) ? 16 : 1;
+						buy *= amount;
+						sell *= amount;
+						ItemStack stack = Util.copy(item);
+						stack.setAmount(amount);
+						if(e.isLeftClick()) {
+							PlayerInter.buy(player, buy, stack, shop);
+						} else if(e.isRightClick()) {
+							PlayerInter.sell(player, sell, stack, shop, buy);
+						}
+						ShopGUI.show(player, UltraShop.getEcon(), shop, 1);
+						return;
 					}
-					ShopGUI.show(player, UltraShop.getEcon(), shop, 1);
-					return;
 				}
 			}
 			if(item.getType().equals(Material.BARRIER)) {

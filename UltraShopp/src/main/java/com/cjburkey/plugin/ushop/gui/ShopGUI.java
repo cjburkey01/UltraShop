@@ -1,6 +1,8 @@
 package com.cjburkey.plugin.ushop.gui;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -23,6 +25,12 @@ public class ShopGUI {
 		int start = 45 * (page - 1);
 		double pages = Math.ceil((double) list.size() / 45d);
 		
+		Collections.sort(list, new Comparator<ShopItem>() {
+			public int compare(ShopItem one, ShopItem two) {
+				return one.item.compareTo(two.item);
+			}
+		});
+		
 		for(int j = start; j < (45 * (page - 1)) + 45; j ++) {
 			if(j < list.size()) {
 				ShopItem i = list.get(j);
@@ -39,9 +47,12 @@ public class ShopGUI {
 			}
 		}
 		
-		ItemStack back = Util.nameStack(Util.stringToItem("SIGN", 0), "&2Back");
-		ItemStack forw = Util.nameStack(Util.stringToItem("SIGN", 0), "&2Next");
+		ItemStack back = Util.nameStack(Util.stringToItem("ARROW", 0), "&2Back");
+		ItemStack forw = Util.nameStack(Util.stringToItem("ARROW", 0), "&2Next");
 		ItemStack exit = Util.nameStack(Util.stringToItem("BARRIER", 0), "&4Exit");
+		
+		forw = Util.loreStack(forw, "" + (page + 1));
+		back = Util.loreStack(back, "" + (page - 1));
 		
 		if(page > 1) inv.setItem(inv.getSize() - 2, back);
 		if(page < pages) inv.setItem(inv.getSize() - 1, forw);
