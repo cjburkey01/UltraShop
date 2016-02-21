@@ -9,6 +9,7 @@ import com.cjburkey.plugin.ushop.UltraShop;
 import com.cjburkey.plugin.ushop.Util;
 import com.cjburkey.plugin.ushop.gui.ShopGUI;
 import com.cjburkey.plugin.ushop.shop.ShopUtil;
+import net.minecraft.server.v1_8_R3.Material;
 
 public class Shop implements CommandExecutor {
 	
@@ -75,7 +76,7 @@ public class Shop implements CommandExecutor {
 					try {
 						if(ShopUtil.existsShop(args[1])) {
 							ItemStack i = p.getItemInHand();
-							if(i == null) {
+							if(i == null || i.getType().equals(Material.AIR)) {
 								help(s);
 								return;
 							}
