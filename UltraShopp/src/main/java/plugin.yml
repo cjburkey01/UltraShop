@@ -3,7 +3,7 @@ main: com.cjburkey.plugin.ushop.UltraShop
 author: CJ Burkey
 database: false
 prefix: UltraShop
-version: 1.0.4.2
+version: 1.0.4.3
 depend: [Vault]
 
 permission:

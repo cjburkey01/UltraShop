@@ -1,4 +1,4 @@
-# UltraShop 1.0.4.2
+# UltraShop 1.0.4.3
 # Created by CJ Burkey
-# 1.01 = 1% increase
-PriceChangeAmount: 1.01
+# 0.01 = 1% increase
+PercentPrice: 0.01

@@ -20,6 +20,7 @@ public class ClickEvent implements Listener {
 		e.setCancelled(true);
 		Player player = (Player) e.getWhoClicked();
 		ItemStack item = e.getCurrentItem();
+		if(item.getType().equals(Material.AIR) || item == null) return; 
 		String shop = e.getInventory().getTitle().replaceAll(Util.color("&2Shop - "), "");
 		String i = item.getType().name() + ":" + item.getDurability();
 		String disp = item.getItemMeta().getDisplayName();
@@ -40,7 +41,7 @@ public class ClickEvent implements Listener {
 						if(e.isLeftClick()) {
 							PlayerInter.buy(player, buy, stack, shop, amount);
 						} else if(e.isRightClick()) {
-							PlayerInter.sell(player, sell, stack, shop, buy, amount);
+							PlayerInter.sell(player, sell, stack, shop, amount);
 						}
 						ShopGUI.show(player, UltraShop.getEcon(), shop, 1);
 						return;

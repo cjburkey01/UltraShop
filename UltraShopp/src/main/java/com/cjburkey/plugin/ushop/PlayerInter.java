@@ -32,21 +32,30 @@ public class PlayerInter {
 		return false;
 	}
 	
-	public static final void buy(Player player, double buy, ItemStack stack, String shop, int amount) {
-		if(PlayerInter.take(player.getUniqueId(), buy)) {
+	public static final double getPercent() {
+		return UltraShop.getPlugin().getConfig().getDouble("PercentPrice");
+	}
+	
+	public static final void buy(Player player, double buymoney, ItemStack stack, String shop, int amount) {
+		double buy = ShopUtil.getItemFromShop(shop, stack.getType().name() + ":" + stack.getDurability());
+		if(PlayerInter.take(player.getUniqueId(), buymoney)) {
+			stack.setAmount(stack.getAmount());
 			PlayerInter.giveItem(player, Util.copy(stack));
-			double buyy = UltraShop.getPlugin().getConfig().getDouble("PriceChangeAmount");
-			buy *= (buyy * amount);
+			double percent = 1 + (amount * getPercent());
+			buy *= percent;
 			ShopUtil.addItemToShop(shop, stack.getType().name() + ":" + stack.getDurability(), buy);
 			return;
 		}
 	}
 	
-	public static final void sell(Player player, double sell, ItemStack stack, String shop, double buy, int amount) {
+	public static final void sell(Player player, double sellmoney, ItemStack stack, String shop, int amount) {
+		double buy = ShopUtil.getItemFromShop(shop, stack.getType().name() + ":" + stack.getDurability());
 		if(PlayerInter.takeItem(player, Util.copy(stack))) {
-			PlayerInter.give(player.getUniqueId(), sell);
-			double selll = 2 - UltraShop.getPlugin().getConfig().getDouble("PriceChangeAmount");
-			buy *= (selll * amount);
+			stack.setAmount(stack.getAmount() - 1);
+			PlayerInter.give(player.getUniqueId(), sellmoney);
+			double percent = (1 - (amount * getPercent()));
+			Util.log(percent + " = 1 - (" + amount + " * " + getPercent() + "));");
+			buy *= percent;
 			ShopUtil.addItemToShop(shop, stack.getType().name() + ":" + stack.getDurability(), buy);
 			return;
 		}
