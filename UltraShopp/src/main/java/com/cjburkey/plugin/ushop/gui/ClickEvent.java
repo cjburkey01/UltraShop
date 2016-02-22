@@ -24,7 +24,7 @@ public class ClickEvent implements Listener {
 		String i = item.getType().name() + ":" + item.getDurability();
 		String disp = item.getItemMeta().getDisplayName();
 		if(item != null) {
-			if(disp.equals(Util.color("&2Back")) || disp.equals(Util.color("&2Next"))) {
+			if(disp != null && (disp.equals(Util.color("&2Back")) || disp.equals(Util.color("&2Next")))) {
 				int page = Integer.parseInt(item.getItemMeta().getLore().get(0));
 				ShopGUI.show(player, UltraShop.getEcon(), shop, page);
 			} else {
@@ -38,9 +38,9 @@ public class ClickEvent implements Listener {
 						ItemStack stack = Util.copy(item);
 						stack.setAmount(amount);
 						if(e.isLeftClick()) {
-							PlayerInter.buy(player, buy, stack, shop);
+							PlayerInter.buy(player, buy, stack, shop, amount);
 						} else if(e.isRightClick()) {
-							PlayerInter.sell(player, sell, stack, shop, buy);
+							PlayerInter.sell(player, sell, stack, shop, buy, amount);
 						}
 						ShopGUI.show(player, UltraShop.getEcon(), shop, 1);
 						return;

@@ -32,19 +32,19 @@ public class PlayerInter {
 		return false;
 	}
 	
-	public static final void buy(Player player, double buy, ItemStack stack, String shop) {
+	public static final void buy(Player player, double buy, ItemStack stack, String shop, int amount) {
 		if(PlayerInter.take(player.getUniqueId(), buy)) {
 			PlayerInter.giveItem(player, Util.copy(stack));
-			buy *= 1.01;
+			buy *= ((UltraShop.getPlugin().getConfig().getDouble("PriceChangeAmount")) * amount);
 			ShopUtil.addItemToShop(shop, stack.getType().name() + ":" + stack.getDurability(), buy);
 			return;
 		}
 	}
 	
-	public static final void sell(Player player, double sell, ItemStack stack, String shop, double buy) {
+	public static final void sell(Player player, double sell, ItemStack stack, String shop, double buy, int amount) {
 		if(PlayerInter.takeItem(player, Util.copy(stack))) {
 			PlayerInter.give(player.getUniqueId(), sell);
-			buy *= 0.99;
+			buy *= ((2 - UltraShop.getPlugin().getConfig().getDouble("PriceChangeAmount")) * amount);
 			ShopUtil.addItemToShop(shop, stack.getType().name() + ":" + stack.getDurability(), buy);
 			return;
 		}
