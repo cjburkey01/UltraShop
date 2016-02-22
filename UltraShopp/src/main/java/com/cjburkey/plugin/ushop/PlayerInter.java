@@ -44,7 +44,7 @@ public class PlayerInter {
 	public static final void sell(Player player, double sell, ItemStack stack, String shop, double buy, int amount) {
 		if(PlayerInter.takeItem(player, Util.copy(stack))) {
 			PlayerInter.give(player.getUniqueId(), sell);
-			buy *= ((2 - UltraShop.getPlugin().getConfig().getDouble("PriceChangeAmount")) * amount);
+			buy *= ((1 - UltraShop.getPlugin().getConfig().getDouble("PriceChangeAmount")) * amount);
 			ShopUtil.addItemToShop(shop, stack.getType().name() + ":" + stack.getDurability(), buy);
 			return;
 		}
