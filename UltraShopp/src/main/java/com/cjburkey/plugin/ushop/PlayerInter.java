@@ -35,7 +35,8 @@ public class PlayerInter {
 	public static final void buy(Player player, double buy, ItemStack stack, String shop, int amount) {
 		if(PlayerInter.take(player.getUniqueId(), buy)) {
 			PlayerInter.giveItem(player, Util.copy(stack));
-			buy *= ((UltraShop.getPlugin().getConfig().getDouble("PriceChangeAmount")) * amount);
+			double buyy = UltraShop.getPlugin().getConfig().getDouble("PriceChangeAmount");
+			buy *= (buyy * amount);
 			ShopUtil.addItemToShop(shop, stack.getType().name() + ":" + stack.getDurability(), buy);
 			return;
 		}
@@ -44,7 +45,8 @@ public class PlayerInter {
 	public static final void sell(Player player, double sell, ItemStack stack, String shop, double buy, int amount) {
 		if(PlayerInter.takeItem(player, Util.copy(stack))) {
 			PlayerInter.give(player.getUniqueId(), sell);
-			buy *= ((1 - UltraShop.getPlugin().getConfig().getDouble("PriceChangeAmount")) * amount);
+			double selll = 2 - UltraShop.getPlugin().getConfig().getDouble("PriceChangeAmount");
+			buy *= (selll * amount);
 			ShopUtil.addItemToShop(shop, stack.getType().name() + ":" + stack.getDurability(), buy);
 			return;
 		}
